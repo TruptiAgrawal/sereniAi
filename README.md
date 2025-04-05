@@ -1,7 +1,34 @@
-# sereniAi
- The AI Mental Health Companion
+# Serene: AI Mental Health Companion
 
- The AI Mental Health Companion is an intelligent, empathetic chatbot designed to offer emotional support, advice, and helpful resources to individuals experiencing mental health struggles.    
- Acting as a virtual friend, it provides a safe space for users to express their thoughts, receive personalized guidance, and access helplines when needed. Additionally, the AI integrates 
- relaxing activities such as mindfulness exercises, breathing techniques, and interactive games to reduce stress and enhance emotional well-being. By leveraging natural language processing and 
- AI-driven recommendations, this companion aims to bridge the gap between mental health awareness and accessible, supportive care.
+## Overview
+- An intelligent, empathetic mental health chatbot providing emotional support
+- Designed with a calming, minimal and artistic interface
+- Features interactive relaxation activities and helpful resources
+
+## Key Features
+- **AI Chat Companion**: Safe space to express thoughts and receive personalized guidance
+- **Guided Breathing Exercise**: Visual breathing technique to reduce stress and anxiety
+- **Creative Expression Canvas**: Digital drawing tool for emotional release
+- **Memory Match Game**: Simple focus-building activity for mental stimulation
+- **Inspirational Quotes**: Rotating collection of mental wellness quotes
+
+## Technical Details
+- Pure HTML, CSS, and JavaScript implementation
+- Responsive design that works across devices
+- No external dependencies required
+
+## Resources Section
+- Crisis support contact information
+- Therapist finder recommendations
+- Self-help app suggestions
+
+## Usage
+- Open the HTML file in any modern web browser
+- Navigate through sections using the menu
+- Engage with the AI chat by typing messages
+- Try different relaxation activities through the tabbed interface
+
+## Design Philosophy
+- Soothing color palette (teal, cream, and natural greens)
+- Minimalist interface with smooth animations
+- User-centered design focusing on emotional comfort
