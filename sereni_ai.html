@@ -4,7 +4,881 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Serene - AI Mental Health Companion</title>
+    <style><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serene - AI Mental Health Companion</title>
+    <script> window.chtlConfig = { chatbotId: "9133293368" } </script>
+<script async data-id="9133293368" id="chatling-embed-script" type="text/javascript" src="https://chatling.ai/js/embed.js"></script>
     <style>
+        :root {
+            --primary: #7bb5b3;
+            --secondary: #f8f4e3;
+            --accent: #b6d7a8;
+            --text: #545454;
+            --light-text: #7a7a7a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--text);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .hero {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            z-index: 1;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 30px;
+            color: var(--light-text);
+            z-index: 1;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        
+        .btn:hover {
+            background-color: #679e9c;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .floating-circles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .features {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--primary);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .feature-card p {
+            color: var(--light-text);
+        }
+        
+        .quote-section {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .quote-box {
+            max-width: 800px;
+            margin: 0 auto;
+            font-style: italic;
+            font-size: 1.4rem;
+            line-height: 1.8;
+        }
+        
+        .quote-author {
+            font-style: normal;
+            margin-top: 20px;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+        
+        .activities {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .activity-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .tab-button {
+            border: none;
+            background: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            color: var(--light-text);
+            font-weight: 500;
+        }
+        
+        .tab-button.active {
+            border-bottom: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .mindfulness-exercise {
+            text-align: center;
+        }
+        
+        .mindfulness-exercise h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .breathing-container {
+            position: relative;
+            margin: 40px auto;
+            width: 200px;
+            height: 200px;
+        }
+        
+        .circle-breath {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: var(--accent);
+            opacity: 0.3;
+            transform: scale(1);
+        }
+        
+        .breathing-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+        
+        @keyframes breatheIn {
+            from { transform: scale(1); opacity: 0.3; }
+            to { transform: scale(1.5); opacity: 0.7; }
+        }
+        
+        @keyframes breatheOut {
+            from { transform: scale(1.5); opacity: 0.7; }
+            to { transform: scale(1); opacity: 0.3; }
+        }
+        
+        .canvas-container {
+            text-align: center;
+        }
+        
+        .color-dots {
+            margin: 20px 0;
+        }
+        
+        .color-dot {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        #canvas {
+            background-color: white;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            grid-gap: 10px;
+            margin: 20px auto;
+            justify-content: center;
+        }
+        
+        .memory-card {
+            width: 100px;
+            height: 100px;
+            background-color: var(--primary);
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+        
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .memory-card.matched {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        footer {
+            background-color: var(--text);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            opacity: 0.8;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .copyright {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .memory-game {
+                grid-template-columns: repeat(3, 80px);
+            }
+            
+            .memory-card {
+                width: 80px;
+                height: 80px;
+            }
+            
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">SereneAi<span></span></a>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#activities">Activities</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+    
+    <section class="hero">
+        <div class="floating-circles" id="floatingCircles"></div>
+        <h1>Your AI Mental Health Companion</h1>
+        <p>A safe space for emotional support, mindfulness, and personal growth.</p>
+        <a href="#activities" class="btn">Try Activities</a>
+    </section>
+    
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">How We Help</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Emotional Support</h3>
+                    <p>Talk about your feelings in a safe, judgment-free environment with our empathetic AI companion.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Mindfulness Activities</h3>
+                    <p>Engage in guided breathing exercises, meditation, and relaxation techniques to reduce stress.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Resource Connection</h3>
+                    <p>Access helpful resources and professional support when you need more assistance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="quote-section" id="quote-section">
+        <div class="container">
+            <div class="quote-box">
+                <p id="quote">"Your mental health is a priority. Your happiness is essential. Your self-care is a necessity."</p>
+                <p class="quote-author" id="author">- Unknown</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="activities" id="activities">
+        <div class="container">
+            <h2 class="section-title">Relaxation Activities</h2>
+            <div class="activity-tabs">
+                <button class="tab-button active" data-tab="breathing">Breathing</button>
+                <button class="tab-button" data-tab="drawing">Calm Drawing</button>
+                <button class="tab-button" data-tab="memory">Memory Game</button>
+            </div>
+            
+            <div class="tab-content active" id="breathing">
+                <div class="mindfulness-exercise">
+                    <h3>Guided Breathing Exercise</h3>
+                    <p>Follow the circle as it expands and contracts. Breathe in as it grows, and out as it shrinks.</p>
+                    <div class="breathing-container">
+                        <div class="circle-breath" id="breathCircle"></div>
+                        <div class="breathing-text" id="breathText">Breathe In</div>
+                    </div>
+                    <button class="btn" id="startBreathing">Start Exercise</button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="drawing">
+                <div class="canvas-container">
+                    <h3>Express Yourself Through Art</h3>
+                    <p>Use this simple drawing tool to express your feelings or just relax with some creative doodling.</p>
+                    <div class="color-dots">
+                        <span class="color-dot" style="background-color: #7bb5b3;" data-color="#7bb5b3"></span>
+                        <span class="color-dot" style="background-color: #b6d7a8;" data-color="#b6d7a8"></span>
+                        <span class="color-dot" style="background-color: #9fc5e8;" data-color="#9fc5e8"></span>
+                        <span class="color-dot" style="background-color: #d5a6bd;" data-color="#d5a6bd"></span>
+                        <span class="color-dot" style="background-color: #545454;" data-color="#545454"></span>
+                    </div>
+                    <canvas id="canvas" width="600" height="400"></canvas>
+                    <button class="btn" id="clearCanvas" style="margin-top: 20px;">Clear Canvas</button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="memory">
+                <div class="memory-container">
+                    <h3>Memory Match Game</h3>
+                    <p>Challenge your brain and improve focus with this simple memory matching game.</p>
+                    <div class="memory-game" id="memoryGame"></div>
+                    <button class="btn" id="restartMemory" style="margin-top: 20px;">Restart Game</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="resources" id="resources">
+        <div class="container">
+            <h2 class="section-title">Helpful Resources</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Crisis Support</h3>
+                    <p>If you're in crisis, please reach out to a crisis helpline immediately:</p>
+                    <p>National Suicide Prevention Lifeline: 988</p>
+                    <p>Crisis Text Line: Text HOME to 741741</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Find a Therapist</h3>
+                    <p>Professional help is available. Use these resources to find therapists near you:</p>
+                    <p>Psychology Today Directory</p>
+                    <p>Better Help Online Therapy</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Self-Help Resources</h3>
+                    <p>Explore these apps and websites for additional support:</p>
+                    <p>Headspace - Guided meditation</p>
+                    <p>Calm - Sleep and relaxation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+            <p class="copyright">© 2025 Serene AI Mental Health Companion. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Floating circles animation
+        const floatingCircles = document.getElementById('floatingCircles');
+        const colors = ['#7bb5b3', '#b6d7a8', '#9fc5e8', '#d5a6bd', '#f8f4e3'];
+        
+        for (let i = 0; i < 15; i++) {
+            const circle = document.createElement('div');
+            circle.classList.add('circle');
+            
+            const size = Math.random() * 100 + 50;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            circle.style.width = `${size}px`;
+            circle.style.height = `${size}px`;
+            circle.style.backgroundColor = color;
+            circle.style.left = `${Math.random() * 100}%`;
+            circle.style.top = `${Math.random() * 100}%`;
+            
+            floatingCircles.appendChild(circle);
+        }
+        
+        // Animated floating effect for circles
+        const circles = document.querySelectorAll('.circle');
+        circles.forEach(circle => {
+            const duration = Math.random() * 10 + 10;
+            const xMovement = Math.random() * 20 - 10;
+            const yMovement = Math.random() * 20 - 10;
+            
+            circle.animate([
+                { transform: 'translate(0, 0)' },
+                { transform: `translate(${xMovement}px, ${yMovement}px)` },
+                { transform: 'translate(0, 0)' }
+            ], {
+                duration: duration * 1000,
+                iterations: Infinity,
+                direction: 'alternate',
+                easing: 'ease-in-out'
+            });
+        });
+        
+        // Random quotes
+        const quotes = [
+            { text: "Mental health is not a destination, but a process. It's about how you drive, not where you're going.", author: "Noam Shpancer" },
+            { text: "You don't have to be positive all the time. It's perfectly okay to feel sad, angry, annoyed, frustrated, scared, or anxious.", author: "Lori Deschene" },
+            { text: "Your mental health is a priority. Your happiness is essential. Your self-care is a necessity.", author: "Unknown" },
+            { text: "Take a deep breath. It's just a bad day, not a bad life.", author: "Unknown" },
+            { text: "It's okay to not be okay, as long as you are not giving up.", author: "Karen Salmansohn" },
+            { text: "Self-care is how you take your power back.", author: "Lalah Delia" },
+            { text: "Be gentle with yourself. You're doing the best you can.", author: "Unknown" }
+        ];
+        
+        function changeQuote() {
+            const quoteElement = document.getElementById('quote');
+            const authorElement = document.getElementById('author');
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            
+            quoteElement.textContent = `"${randomQuote.text}"`;
+            authorElement.textContent = `- ${randomQuote.author}`;
+        }
+        
+        setInterval(changeQuote, 10000);
+        
+        // Activity tabs
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                button.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Breathing exercise
+        const breathCircle = document.getElementById('breathCircle');
+        const breathText = document.getElementById('breathText');
+        const startBreathingBtn = document.getElementById('startBreathing');
+        let isBreathing = false;
+        
+        startBreathingBtn.addEventListener('click', () => {
+            if (isBreathing) {
+                stopBreathing();
+                startBreathingBtn.textContent = 'Start Exercise';
+            } else {
+                startBreathing();
+                startBreathingBtn.textContent = 'Stop Exercise';
+            }
+            isBreathing = !isBreathing;
+        });
+        
+        function startBreathing() {
+            breathIn();
+        }
+        
+        function stopBreathing() {
+            breathCircle.style.animation = 'none';
+            breathText.textContent = 'Breathe In';
+        }
+        
+        function breathIn() {
+            breathText.textContent = 'Breathe In';
+            breathCircle.style.animation = 'breatheIn 4s linear forwards';
+            
+            breathCircle.onanimationend = () => {
+                breathHold();
+            };
+        }
+        
+        function breathHold() {
+            breathText.textContent = 'Hold';
+            setTimeout(breathOut, 2000);
+        }
+        
+        function breathOut() {
+            breathText.textContent = 'Breathe Out';
+            breathCircle.style.animation = 'breatheOut 6s linear forwards';
+            
+            breathCircle.onanimationend = () => {
+                if (isBreathing) {
+                    setTimeout(breathIn, 1000);
+                }
+            };
+        }
+        
+        // Drawing canvas
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const clearBtn = document.getElementById('clearCanvas');
+        const colorDots = document.querySelectorAll('.color-dot');
+        
+        let isDrawing = false;
+        let currentColor = '#7bb5b3';
+        let lastX = 0;
+        let lastY = 0;
+        
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = currentColor;
+        
+        function startDrawing(e) {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        }
+        
+        function stopDrawing() {
+            isDrawing = false;
+        }
+        
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+        
+        // Touch support for drawing
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        });
+        
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        });
+        
+        canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            const mouseEvent = new MouseEvent('mouseup', {});
+            canvas.dispatchEvent(mouseEvent);
+        });
+        
+        clearBtn.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+        
+        colorDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                currentColor = dot.getAttribute('data-color');
+                ctx.strokeStyle = currentColor;
+                
+                colorDots.forEach(d => d.style.transform = 'scale(1)');
+                dot.style.transform = 'scale(1.2)';
+            });
+        });
+        
+        // Memory game
+        const memoryGame = document.getElementById('memoryGame');
+        const restartMemoryBtn = document.getElementById('restartMemory');
+        const emojis = ['😊', '🌸', '🌈', '🦋', '🌞', '🐢', '🌴', '🍎'];
+        let cards = [];
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let matchedPairs = 0;
+        
+        function createMemoryGame() {
+            // Create pairs of emoji cards
+            const cardValues = [...emojis, ...emojis];
+            cards = [];
+            matchedPairs = 0;
+            
+            // Shuffle the cards
+            cardValues.sort(() => Math.random() - 0.5);
+            
+            // Clear the board
+            memoryGame.innerHTML = '';
+            
+            // Create card elements
+            cardValues.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.classList.add('memory-card');
+                card.dataset.value = emoji;
+                card.dataset.id = index;
+                card.addEventListener('click', flipCard);
+                card.textContent = '?';
+                
+                memoryGame.appendChild(card);
+                cards.push(card);
+            });
+        }
+        
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+            
+            this.classList.add('flipped');
+            this.textContent = this.dataset.value;
+            
+            if (!hasFlippedCard) {
+                // First card flipped
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+            
+            // Second card flipped
+            secondCard = this;
+            checkForMatch();
+        }
+        
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.value === secondCard.dataset.value;
+            
+            if (isMatch) {
+                disableCards();
+                matchedPairs++;
+                
+                if (matchedPairs === emojis.length) {
+                    setTimeout(() => {
+                        alert('Congratulations! You matched all the cards!');
+                    }, 500);
+                }
+            } else {
+                unflipCards();
+            }
+        }
+        
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            
+            resetBoard();
+        }
+        
+        function unflipCards() {
+            lockBoard = true;
+            
+            setTimeout(() => {
+                firstCard.textContent = '?';
+                secondCard.textContent = '?';
+                firstCard.classList.remove('flipped');
+                secondCard.classList.remove('flipped');
+                
+                resetBoard();
+            }, 1000);
+        }
+        
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+        
+        restartMemoryBtn.addEventListener('click', createMemoryGame);
+        
+        // Initialize everything when the page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            // Initialize with a random quote
+            changeQuote();
+            
+            // Create the memory game
+            createMemoryGame();
+            
+            // Set first color dot as active
+            colorDots[0].style.transform = 'scale(1.2)';
+        });
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
         :root {
             --primary: #7bb5b3;
             --secondary: #f8f4e3;
