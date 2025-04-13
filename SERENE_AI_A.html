@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serene - AI Mental Health Companion</title>
+    <style>
+        :root {
+            --primary: #7bb5b3;
+            --secondary: #f8f4e3;
+            --accent: #b6d7a8;
+            --text: #545454;
+            --light-text: #7a7a7a;
+            --alert: #f8d7da;
+            --alert-text: #721c24;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--text);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .hero {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            z-index: 1;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 30px;
+            color: var(--light-text);
+            z-index: 1;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn:hover {
+            background-color: #679e9c;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .floating-circles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .features {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--primary);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .feature-card p {
+            color: var(--light-text);
+        }
+        
+        .quote-section {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .quote-box {
+            max-width: 800px;
+            margin: 0 auto;
+            font-style: italic;
+            font-size: 1.4rem;
+            line-height: 1.8;
+        }
+        
+        .quote-author {
+            font-style: normal;
+            margin-top: 20px;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+        
+        .chat-section {
+            padding: 80px 0;
+        }
+        
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .chat-header h3 {
+            font-size: 1.3rem;
+        }
+        
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+        }
+        
+        .user-message {
+            justify-content: flex-end;
+        }
+        
+        .bot-message {
+            justify-content: flex-start;
+        }
+        
+        .message-content {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 15px;
+        }
+        
+        .user-message .message-content {
+            background-color: var(--primary);
+            color: white;
+            border-top-right-radius: 0;
+        }
+        
+        .bot-message .message-content {
+            background-color: #f1f1f1;
+            border-top-left-radius: 0;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 10px 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 10px;
+            border-radius: 20px;
+            background-color: #f1f1f1;
+        }
+        
+        .chat-input button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        
+        .chat-input button:hover {
+            background-color: #679e9c;
+        }
+        
+        .activities {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .activity-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-button {
+            border: none;
+            background: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            color: var(--light-text);
+            font-weight: 500;
+        }
+        
+        .tab-button.active {
+            border-bottom: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .mindfulness-exercise {
+            text-align: center;
+        }
+        
+        .mindfulness-exercise h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .breathing-container {
+            position: relative;
+            margin: 40px auto;
+            width: 200px;
+            height: 200px;
+        }
+        
+        .circle-breath {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: var(--accent);
+            opacity: 0.3;
+            transform: scale(1);
+        }
+        
+        .breathing-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+        
+        @keyframes breatheIn {
+            from { transform: scale(1); opacity: 0.3; }
+            to { transform: scale(1.5); opacity: 0.7; }
+        }
+        
+        @keyframes breatheOut {
+            from { transform: scale(1.5); opacity: 0.7; }
+            to { transform: scale(1); opacity: 0.3; }
+        }
+        
+        .canvas-container {
+            text-align: center;
+        }
+        
+        .color-dots {
+            margin: 20px 0;
+        }
+        
+        .color-dot {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        #canvas {
+            background-color: white;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            grid-gap: 10px;
+            margin: 20px auto;
+            justify-content: center;
+        }
+        
+        .memory-card {
+            width: 100px;
+            height: 100px;
+            background-color: var(--primary);
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+        
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .memory-card.matched {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        /* Bubble Pop Game Styles */
+        .bubble-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-color: #e6f7f6;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 8s infinite ease-in-out;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            color: rgba(0, 0, 0, 0.5);
+            font-weight: 500;
+            user-select: none;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(120%); }
+            100% { transform: translateY(-120%); }
+        }
+        
+        @keyframes pop {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        
+        .bubble-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+        
+        .bubble-score, .bubble-timer {
+            padding: 8px 15px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Pomodoro Timer Styles */
+        .pomodoro-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .pomodoro-timer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 30px auto;
+            position: relative;
+        }
+        
+        .pomodoro-timer::before {
+            content: '';
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            background: var(--secondary);
+        }
+        
+        .timer-display {
+            position: relative;
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary);
+            z-index: 1;
+        }
+        
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        .timer-mode-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        
+        .mode-button {
+            background-color: #eee;
+            color: var(--text);
+            border: none;
+            border-radius: 30px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .mode-button.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .timer-progress {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+        }
+        
+        .timer-progress circle {
+            fill: none;
+            stroke-width: 10;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            stroke: var(--primary);
+            stroke-dasharray: 754; /* 2*PI*r where r is 120 */
+            stroke-dashoffset: 754;
+            transition: stroke-dashoffset 1s linear;
+        }
+        
+        .timer-sessions {
+            margin-top: 20px;
+            font-weight: 500;
+        }
+        
+        /* Mood Tracker Styles */
+        .mood-tracker {
+            text-align: center;
+        }
+        
+        .mood-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .mood-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 10px;
+            width: 80px;
+        }
+        
+        .mood-option:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .mood-emoji {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+        
+        .mood-label {
+            font-size: 0.8rem;
+            color: var(--light-text);
+        }
+        
+        .mood-chart-container {
+            margin: 30px auto;
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .mood-history {
+            margin-top: 20px;
+            text-align: left;
+        }
+        
+        .mood-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .mood-date {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        .mood-notes {
+            margin-top: 20px;
+        }
+        
+        .mood-notes textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+            min-height: 100px;
+            margin-bottom: 10px;
+        }
+        
+        /* Gratitude Journal Styles */
+        .gratitude-journal {
+            text-align: center;
+        }
+        
+        .gratitude-form {
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: left;
+        }
+        
+        .gratitude-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            resize: vertical;
+            min-height: 150px;
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+        
+        .gratitude-entries {
+            margin-top: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .gratitude-entry {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-align: left;
+        }
+        
+        .gratitude-date {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .gratitude-text {
+            font-style: italic;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-out;
+            transform: translateY(150%);
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateY(0);
+        }
+        
+        .notification.alert {
+            background-color: var(--alert);
+            color: var(--alert-text);
+        }
+        
+        footer {
+            background-color: var(--text);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            opacity: 0.8;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .copyright {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .memory-game {
+                grid-template-columns: repeat(3, 80px);
+            }
+            
+            .memory-card {
+                width: 80px;
+                height: 80px;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .activity-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab-button {
+                margin-bottom: 10px;
+            }
+            
+            .pomodoro-timer {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .pomodoro-timer::before {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .timer-progress {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">SereneAi<span></span></a>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#chat">Chat</a></li>
+                    <li><a href="#activities">Activities</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+    
+    <section class="hero">
+        <div class="floating-circles" id="floatingCircles"></div>
+        <h1>Your AI Mental Health Companion</h1>
+        <p>A safe space for emotional support, mindfulness, and personal growth.</p>
+        <a href="#chat" class="btn">Start Chatting</a>
+    </section>
+    
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">How We Help</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Emotional Support</h3>
+                    <p>Talk about your feelings in a safe, judgment-free environment with our empathetic AI companion.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Mindfulness Activities</h3>
+                    <p>Engage in guided breathing exercises, meditation, and relaxation techniques to reduce stress.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Productivity Tools</h3>
+                    <p>Use our Pomodoro timer to manage your work and break time effectively. Stay focused and balanced.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Mood Tracking</h3>
+                    <p>Monitor your emotional patterns over time to gain insights into what affects your well-being.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Gratitude Practice</h3>
+                    <p>Cultivate positivity by regularly recording things you're grateful for in your daily life.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Resource Connection</h3>
+                    <p>Access helpful resources and professional support when you need more assistance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="quote-section" id="quote-section">
+        <div class="container">
+            <div class="quote-box">
+                <p id="quote">"Your mental health is a priority. Your happiness is essential. Your self-care is a necessity."</p>
+                <p class="quote-author" id="author">- Unknown</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="chat-section" id="chat">
+        <div class="container">
+            <h2 class="section-title">Chat with Serene</h2>
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h3>Serene AI</h3>
+                    <span>Online</span>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot-message">
+                        <div class="message-content">
+                            Hello! I'm Serene, your AI mental health companion. How are you feeling today?
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Type your message...">
+                    <button id="sendButton">Send</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="activities" id="activities">
+        <div class="container">
+            <h2 class="section-title">Tools & Activities</h2>
+            <div class="activity-tabs">
+                <button class="tab-button active" data-tab="pomodoro">Pomodoro Timer</button>
+                <button class="tab-button" data-tab="breathing">Breathing</button>
+                <button class="tab-button" data-tab="drawing">Calm Drawing</button>
+                <button class="tab-button" data-tab="memory">Memory Game</button>
+                <button class="tab-button" data-tab="bubbles">Bubble Pop</button>
+                <button class="tab-button" data-tab="mood">Mood Tracker</button>
+                <button class="tab-button" data-tab="gratitude">Gratitude Journal</button>
+            </div>
+            
+            <!-- Pomodoro Timer Tab -->
+            <div class="tab-content active" id="pomodoro">
+                <div class="pomodoro-container">
+                    <h3>Pomodoro Focus Timer</h3>
+                    <p>Use the Pomodoro Technique to boost productivity and maintain mental balance.</p>
+                    
+                    <div class="timer-mode-selector">
+                        <button class="mode-button active" data-mode="pomodoro">Focus (25m)</button>
+                        <button class="mode-button" data-mode="shortBreak">Short Break (5m)</button>
+                        <button class="mode-button" data-mode="longBreak">Long Break (15m)</button>
+                    </div>
+                    
+                    <div class="pomodoro-timer">
+                        <svg class="timer-progress" viewBox="0 0 250 250">
+                            <circle cx="125" cy="125" r="120"></circle>
+                        </svg>
+                        <div class="timer-display">25:00</div>
+                    </div>
+                    
+                    <div class="timer-controls">
+                        <button class="btn" id="startPomodoroBtn">Start</button>
+                        <button class="btn" id="resetPomodoroBtn">Reset</button>
+                    </div>
+                    
+                    <div class="timer-sessions">
+                        Sessions completed: <span id="sessionCounter">0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="breathing">
+                <div class="mindfulness-exercise">
+                    <h3>Guided Breathing Exercise</h3>
+                    <p>Follow the circle as it expands and contracts. Breathe in as it grows, and out as it shrinks.</p>
+                    <div class="breathing-container">
+                        <div class="circle-breath" id="breathCircle"></div>
+                        <div class="breathing-text" id="breathText">Breathe In</div>
+                    </div>
+                    <button class="btn" id="startBreathing">Start Exercise</button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="drawing">
+                <div class="canvas-container">
+                    <h3>Express Yourself Through Art</h3>
+                    <p>Use this simple drawing tool to express your feelings or just relax with some creative doodling.</p>
+                    <div class="color-dots">
+                        <span class="color-dot" style="background-color: #7bb5b3;" data-color="#7bb5b3"></span>
+                        <span class="color-dot" style="background-color: #b6d7a8;" data-color="#b6d7a8"></span>
+                        <span class="color-dot" style="background-color: #9fc5e8;" data-color="#9fc5e8"></span>
+                        <span class="color-dot" style="background-color: #d5a6bd;" data-color="#d5a6bd"></span>
+                        <span class="color-dot" style="background-color: #545454;" data-color="#545454"></span>
+                    </div>
+                    <canvas id="canvas" width="600" height="400"></canvas>
+                    <button class="btn" id="clearCanvas" style="margin-top: 20px;">Clear Canvas</button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="memory">
+                <div class="memory-container">
+                    <h3>Memory Match Game</h3>
+                    <p>Challenge your brain and improve focus with this simple memory matching game.</p>
+                    <div class="memory-game" id="memoryGame"></div>
+                    <button class="btn" id="restartMemory" style="margin-top: 20px;">Restart Game</button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="bubbles">
+                <div class="bubble-game">
+                    <h3>Bubble Pop Stress Relief</h3>
+                    <p>Pop the floating bubbles to release stress and tension. Each pop gives you a moment of relief.</p>
+                    <div class="bubble-stats">
+                        <div class="bubble-score">Score: <span id="bubbleScore">0</span></div>
+                        <div class="bubble-timer">Time: <span id="bubbleTimer">60</span>s</div>
+                    </div>
+                    <div class="bubble-container" id="bubbleContainer"></div>
+                    <button class="btn" id="startBubbles">Start Game</button>
+                </div>
+            </div>
+                        
+            <div class="tab-content" id="mood">
+                <div class="mood-tracker">
+                    <h3>Track Your Mood</h3>
+                    <p>Monitor your emotional patterns to gain insights into your mental wellbeing over time.</p>
+                    <div class="mood-options">
+                        <div class="mood-option" data-mood="5">
+                            <div class="mood-emoji">😄</div>
+                            <div class="mood-label">Great</div>
+                        </div>
+                        <div class="mood-option" data-mood="4">
+                            <div class="mood-emoji">🙂</div>
+                            <div class="mood-label">Good</div>
+                        </div>
+                        <div class="mood-option" data-mood="3">
+                            <div class="mood-emoji">😐</div>
+                            <div class="mood-label">Okay</div>
+                        </div>
+                        <div class="mood-option" data-mood="2">
+                            <div class="mood-emoji">😔</div>
+                            <div class="mood-label">Low</div>
+                        </div>
+                        <div class="mood-option" data-mood="1">
+                            <div class="mood-emoji">😢</div>
+                            <div class="mood-label">Bad</div>
+                        </div>
+                    </div>
+                    <div class="mood-chart-container">
+                        <canvas id="moodChart"></canvas>
+                    </div>
+                    <div class="mood-notes">
+                        <h4>Add a note about today's mood:</h4>
+                        <textarea id="moodNotes" placeholder="What influenced your mood today?"></textarea>
+                        <button class="btn" id="saveMood">Save Mood</button>
+                    </div>
+                    <div class="mood-history" id="moodHistory">
+                        <!-- Mood entries will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="tab-content" id="gratitude">
+                <div class="gratitude-journal">
+                    <h3>Gratitude Journal</h3>
+                    <p>Cultivate positivity by regularly recording things you're grateful for in your daily life.</p>
+                    <div class="gratitude-form">
+                        <h4>What are you grateful for today?</h4>
+                        <textarea id="gratitudeEntry" placeholder="I am grateful for..."></textarea>
+                        <button class="btn" id="saveGratitude">Save Entry</button>
+                    </div>
+                    <div class="gratitude-entries" id="gratitudeEntries">
+                        <!-- Gratitude entries will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+                    </div>
+                </section>
+                
+                <section class="resources" id="resources">
+                    <div class="container">
+                        <h2 class="section-title">Resources</h2>
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <h3>Crisis Support Lines</h3>
+                                <p>If you're experiencing a mental health crisis or having thoughts of suicide, please reach out for professional help immediately:</p>
+                                <p><strong>National Suicide Prevention Lifeline:</strong> 988 or 1-800-273-8255</p>
+                                <p><strong>Crisis Text Line:</strong> Text HOME to 741741</p>
+                            </div>
+                            <div class="feature-card">
+                                <h3>Find A Therapist</h3>
+                                <p>Working with a licensed mental health professional can provide personalized support for your journey:</p>
+                                <p>- Psychology Today Directory</p>
+                                <p>- BetterHelp (Online Therapy)</p>
+                                <p>- Talkspace (Online Therapy)</p>
+                            </div>
+                            <div class="feature-card">
+                                <h3>Self-Help Books</h3>
+                                <p>Recommended reading for mental wellness and personal growth:</p>
+                                <p>- "The Mindful Way Through Depression" by Williams, Teasdale, Segal, and Kabat-Zinn</p>
+                                <p>- "Feeling Good" by David D. Burns</p>
+                                <p>- "Self-Compassion" by Kristin Neff</p>
+                            </div>
+                            <div class="feature-card">
+                                <h3>Mental Health Apps</h3>
+                                <p>Additional tools you might find helpful:</p>
+                                <p>- Headspace (Meditation)</p>
+                                <p>- Calm (Sleep & Meditation)</p>
+                                <p>- Daylio (Mood Tracking)</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <div class="notification" id="notification"></div>
+                
+                <footer>
+                    <div class="container">
+                        <div class="footer-links">
+                            <a href="#">Privacy Policy</a>
+                            <a href="#">Terms of Service</a>
+                            <a href="#">Contact Us</a>
+                            <a href="#">About</a>
+                        </div>
+                        <p class="copyright">© 2025 SereneAi. All rights reserved. This is a fictional project.</p>
+                        <p class="disclaimer">Note: SereneAi is not a substitute for professional mental health care. If you're experiencing a crisis, please contact emergency services or a mental health professional.</p>
+                    </div>
+                </footer>
+                
+                <script>
+                    // Floating circles animation for hero section
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const floatingCircles = document.getElementById('floatingCircles');
+                        for (let i = 0; i < 15; i++) {
+                            const circle = document.createElement('div');
+                            circle.classList.add('circle');
+                            circle.style.left = `${Math.random() * 100}%`;
+                            circle.style.top = `${Math.random() * 100}%`;
+                            circle.style.width = `${Math.random() * 100 + 50}px`;
+                            circle.style.height = circle.style.width;
+                            circle.style.backgroundColor = i % 2 === 0 ? '#7bb5b3' : '#b6d7a8';
+                            floatingCircles.appendChild(circle);
+                            
+                            // Random animation
+                            circle.style.animation = `float ${Math.random() * 10 + 10}s infinite linear`;
+                            circle.style.animationDelay = `${Math.random() * 5}s`;
+                        }
+                        
+                        // Tab functionality
+                        const tabButtons = document.querySelectorAll('.tab-button');
+                        tabButtons.forEach(button => {
+                            button.addEventListener('click', () => {
+                                // Remove active class from all buttons
+                                tabButtons.forEach(btn => btn.classList.remove('active'));
+                                button.classList.add('active');
+                                
+                                // Hide all tab contents
+                                const tabContents = document.querySelectorAll('.tab-content');
+                                tabContents.forEach(tab => tab.classList.remove('active'));
+                                
+                                // Show the selected tab content
+                                const tabId = button.getAttribute('data-tab');
+                                document.getElementById(tabId).classList.add('active');
+                            });
+                        });
+                        
+                        // Chat functionality
+                        const chatMessages = document.getElementById('chatMessages');
+                        const messageInput = document.getElementById('messageInput');
+                        const sendButton = document.getElementById('sendButton');
+                        
+                        function addMessage(content, isUser = false) {
+                            const messageDiv = document.createElement('div');
+                            messageDiv.classList.add('message');
+                            messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+                            
+                            const messageContent = document.createElement('div');
+                            messageContent.classList.add('message-content');
+                            messageContent.textContent = content;
+                            
+                            messageDiv.appendChild(messageContent);
+                            chatMessages.appendChild(messageDiv);
+                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                        }
+                        
+                        function botResponse(userMessage) {
+                            // Simple responses based on keywords
+                            const lowerMessage = userMessage.toLowerCase();
+                            
+                            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                                return "Hello! How are you feeling today?";
+                            }
+                            else if (lowerMessage.includes('sad') || lowerMessage.includes('depressed') || lowerMessage.includes('unhappy')) {
+                                return "I'm sorry to hear you're feeling down. Remember that it's okay to feel this way sometimes. Would you like to try a breathing exercise or talk more about what's bothering you?";
+                            }
+                            else if (lowerMessage.includes('anxious') || lowerMessage.includes('nervous') || lowerMessage.includes('worry')) {
+                                return "Anxiety can be really challenging. Have you tried our breathing exercise? It might help calm your mind a bit.";
+                            }
+                            else if (lowerMessage.includes('happy') || lowerMessage.includes('good') || lowerMessage.includes('great')) {
+                                return "I'm glad to hear you're doing well! What's something positive that happened recently?";
+                            }
+                            else if (lowerMessage.includes('stress') || lowerMessage.includes('overwhelm')) {
+                                return "It sounds like you're dealing with a lot right now. The Pomodoro timer might help you break tasks into manageable chunks, or maybe you'd like to try the bubble pop game for a quick stress release?";
+                            }
+                            else if (lowerMessage.includes('thank')) {
+                                return "You're welcome! I'm here anytime you need to talk or want to try an activity.";
+                            }
+                            else {
+                                return "Thank you for sharing that with me. How else can I support you today? Would you like to try one of our mindfulness activities?";
+                            }
+                        }
+                        
+                        sendButton.addEventListener('click', () => {
+                            const message = messageInput.value.trim();
+                            if (message) {
+                                addMessage(message, true);
+                                messageInput.value = '';
+                                
+                                // Simulate typing delay
+                                setTimeout(() => {
+                                    const response = botResponse(message);
+                                    addMessage(response);
+                                }, 1000);
+                            }
+                        });
+                        
+                        messageInput.addEventListener('keypress', (e) => {
+                            if (e.key === 'Enter') {
+                                sendButton.click();
+                            }
+                        });
+                        
+                        // Breathing exercise
+                        const breathCircle = document.getElementById('breathCircle');
+                        const breathText = document.getElementById('breathText');
+                        const startBreathingBtn = document.getElementById('startBreathing');
+                        let isBreathing = false;
+                        
+                        startBreathingBtn.addEventListener('click', () => {
+                            if (!isBreathing) {
+                                isBreathing = true;
+                                startBreathingBtn.textContent = 'Stop Exercise';
+                                breathingExercise();
+                            } else {
+                                isBreathing = false;
+                                startBreathingBtn.textContent = 'Start Exercise';
+                                breathCircle.style.animation = 'none';
+                                breathText.textContent = 'Breathe In';
+                            }
+                        });
+                        
+                        function breathingExercise() {
+                            if (!isBreathing) return;
+                            
+                            // Breathe in phase
+                            breathText.textContent = 'Breathe In';
+                            breathCircle.style.animation = 'breatheIn 4s forwards';
+                            
+                            setTimeout(() => {
+                                if (!isBreathing) return;
+                                // Hold phase
+                                breathText.textContent = 'Hold';
+                                
+                                setTimeout(() => {
+                                    if (!isBreathing) return;
+                                    // Breathe out phase
+                                    breathText.textContent = 'Breathe Out';
+                                    breathCircle.style.animation = 'breatheOut 4s forwards';
+                                    
+                                    setTimeout(() => {
+                                        if (!isBreathing) return;
+                                        breathingExercise();
+                                    }, 4000);
+                                }, 2000);
+                            }, 4000);
+                        }
+                        
+                        // Canvas drawing
+                        const canvas = document.getElementById('canvas');
+                        const ctx = canvas.getContext('2d');
+                        const colorDots = document.querySelectorAll('.color-dot');
+                        const clearCanvasBtn = document.getElementById('clearCanvas');
+                        let isDrawing = false;
+                        let currentColor = '#7bb5b3';
+                        
+                        // Set canvas to white background
+                        ctx.fillStyle = 'white';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        
+                        // Color selection
+                        colorDots.forEach(dot => {
+                            dot.addEventListener('click', () => {
+                                currentColor = dot.getAttribute('data-color');
+                                // Reset all dots
+                                colorDots.forEach(d => d.style.border = 'none');
+                                // Highlight selected dot
+                                dot.style.border = '2px solid #545454';
+                            });
+                        });
+                        
+                        // Set first color as selected
+                        colorDots[0].style.border = '2px solid #545454';
+                        
+                        // Drawing functionality
+                        canvas.addEventListener('mousedown', startDrawing);
+                        canvas.addEventListener('mousemove', draw);
+                        canvas.addEventListener('mouseup', stopDrawing);
+                        canvas.addEventListener('mouseout', stopDrawing);
+                        
+                        // Touch support
+                        canvas.addEventListener('touchstart', (e) => {
+                            e.preventDefault();
+                            const touch = e.touches[0];
+                            const mouseEvent = new MouseEvent('mousedown', {
+                                clientX: touch.clientX,
+                                clientY: touch.clientY
+                            });
+                            canvas.dispatchEvent(mouseEvent);
+                        });
+                        
+                        canvas.addEventListener('touchmove', (e) => {
+                            e.preventDefault();
+                            const touch = e.touches[0];
+                            const mouseEvent = new MouseEvent('mousemove', {
+                                clientX: touch.clientX,
+                                clientY: touch.clientY
+                            });
+                            canvas.dispatchEvent(mouseEvent);
+                        });
+                        
+                        canvas.addEventListener('touchend', () => {
+                            const mouseEvent = new MouseEvent('mouseup');
+                            canvas.dispatchEvent(mouseEvent);
+                        });
+                        
+                        function startDrawing(e) {
+                            isDrawing = true;
+                            draw(e);
+                        }
+                        
+                        function draw(e) {
+                            if (!isDrawing) return;
+                            
+                            const rect = canvas.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const y = e.clientY - rect.top;
+                            
+                            ctx.lineWidth = 5;
+                            ctx.lineCap = 'round';
+                            ctx.strokeStyle = currentColor;
+                            
+                            ctx.lineTo(x, y);
+                            ctx.stroke();
+                            ctx.beginPath();
+                            ctx.moveTo(x, y);
+                        }
+                        
+                        function stopDrawing() {
+                            isDrawing = false;
+                            ctx.beginPath();
+                        }
+                        
+                        clearCanvasBtn.addEventListener('click', () => {
+                            ctx.fillStyle = 'white';
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        });
+                        
+                        // Memory Game
+                        const memoryGame = document.getElementById('memoryGame');
+                        const restartMemoryBtn = document.getElementById('restartMemory');
+                        let hasFlippedCard = false;
+                        let lockBoard = false;
+                        let firstCard, secondCard;
+                        let memoryEmojis = ['🌞', '🌈', '🌷', '🦋', '🌊', '🏔️', '🌙', '🐠'];
+                        memoryEmojis = [...memoryEmojis, ...memoryEmojis]; // Duplicate for pairs
+                        
+                        function shuffleMemory() {
+                            return memoryEmojis.sort(() => Math.random() - 0.5);
+                        }
+                        
+                        function createMemoryBoard() {
+                            memoryGame.innerHTML = '';
+                            const shuffledEmojis = shuffleMemory();
+                            
+                            shuffledEmojis.forEach((emoji, index) => {
+                                const card = document.createElement('div');
+                                card.classList.add('memory-card');
+                                card.dataset.value = emoji;
+                                card.dataset.index = index;
+                                card.textContent = '?';
+                                card.addEventListener('click', flipCard);
+                                memoryGame.appendChild(card);
+                            });
+                        }
+                        
+                        function flipCard() {
+                            if (lockBoard) return;
+                            if (this === firstCard) return;
+                            
+                            this.classList.add('flipped');
+                            this.textContent = this.dataset.value;
+                            
+                            if (!hasFlippedCard) {
+                                // First click
+                                hasFlippedCard = true;
+                                firstCard = this;
+                                return;
+                            }
+                            
+                            // Second click
+                            secondCard = this;
+                            checkForMatch();
+                        }
+                        
+                        function checkForMatch() {
+                            let isMatch = firstCard.dataset.value === secondCard.dataset.value;
+                            
+                            if (isMatch) {
+                                disableCards();
+                                firstCard.classList.add('matched');
+                                secondCard.classList.add('matched');
+                                
+                                // Check if game is complete
+                                const allMatched = document.querySelectorAll('.matched').length === memoryEmojis.length;
+                                if (allMatched) {
+                                    setTimeout(() => {
+                                        showNotification('Congratulations! You completed the memory game.', false);
+                                    }, 500);
+                                }
+                            } else {
+                                unflipCards();
+                            }
+                        }
+                        
+                        function disableCards() {
+                            firstCard.removeEventListener('click', flipCard);
+                            secondCard.removeEventListener('click', flipCard);
+                            
+                            resetBoard();
+                        }
+                        
+                        function unflipCards() {
+                            lockBoard = true;
+                            
+                            setTimeout(() => {
+                                firstCard.classList.remove('flipped');
+                                secondCard.classList.remove('flipped');
+                                firstCard.textContent = '?';
+                                secondCard.textContent = '?';
+                                
+                                resetBoard();
+                            }, 1000);
+                        }
+                        
+                        function resetBoard() {
+                            [hasFlippedCard, lockBoard] = [false, false];
+                            [firstCard, secondCard] = [null, null];
+                        }
+                        
+                        restartMemoryBtn.addEventListener('click', createMemoryBoard);
+                        
+                        // Initialize memory game
+                        createMemoryBoard();
+                        
+                        // Bubble Pop Game
+                        const bubbleContainer = document.getElementById('bubbleContainer');
+                        const bubbleScoreDisplay = document.getElementById('bubbleScore');
+                        const bubbleTimerDisplay = document.getElementById('bubbleTimer');
+                        const startBubblesBtn = document.getElementById('startBubbles');
+                        let bubbleScore = 0;
+                        let bubbleTimer = 60;
+                        let bubbleGameActive = false;
+                        let bubbleInterval;
+                        let positiveThoughts = [
+                            "You're doing great!",
+                            "I believe in you!",
+                            "Stay strong!",
+                            "You matter!",
+                            "Keep going!",
+                            "You've got this!",
+                            "You are enough!",
+                            "You're not alone!",
+                            "Take a breath!",
+                            "You are worthy!"
+                        ];
+                        
+                        function createBubble() {
+                            if (!bubbleGameActive) return;
+                            
+                            const bubble = document.createElement('div');
+                            bubble.classList.add('bubble');
+                            
+                            const size = Math.random() * 60 + 40;
+                            bubble.style.width = `${size}px`;
+                            bubble.style.height = `${size}px`;
+                            
+                            // Color variations of blues and greens
+                            const colors = ['#7bb5b3', '#b6d7a8', '#9fc5e8', '#78c5d6'];
+                            bubble.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                            
+                            // Position randomly along the bottom
+                            bubble.style.left = `${Math.random() * 90}%`;
+                            
+                            // Add positive thought
+                            bubble.textContent = positiveThoughts[Math.floor(Math.random() * positiveThoughts.length)];
+                            
+                            // Random animation duration between 6-10 seconds
+                            const duration = Math.random() * 4 + 6;
+                            bubble.style.animation = `float ${duration}s linear`;
+                            
+                            bubbleContainer.appendChild(bubble);
+                            
+                            // Pop event
+                            bubble.addEventListener('click', () => {
+                                bubble.style.animation = 'pop 0.3s forwards';
+                                bubbleScore++;
+                                bubbleScoreDisplay.textContent = bubbleScore;
+                                
+                                setTimeout(() => {
+                                    bubble.remove();
+                                }, 300);
+                            });
+                            
+                            // Remove bubble when animation ends
+                            bubble.addEventListener('animationend', () => {
+                                bubble.remove();
+                            });
+                        }
+                        
+                        function startBubbleGame() {
+                            bubbleGameActive = true;
+                            bubbleScore = 0;
+                            bubbleTimer = 60;
+                            bubbleScoreDisplay.textContent = bubbleScore;
+                            bubbleTimerDisplay.textContent = bubbleTimer;
+                            
+                            startBubblesBtn.textContent = 'Game In Progress';
+                            startBubblesBtn.disabled = true;
+                            
+                            // Create bubbles at random
+                            const bubbleCreator = setInterval(() => {
+                                if (!bubbleGameActive) {
+                                    clearInterval(bubbleCreator);
+                                    return;
+                                }
+                                
+                                createBubble();
+                            }, 800);
+                            
+                            // Timer countdown
+                            bubbleInterval = setInterval(() => {
+                                bubbleTimer--;
+                                bubbleTimerDisplay.textContent = bubbleTimer;
+                                
+                                if (bubbleTimer <= 0) {
+                                    endBubbleGame();
+                                }
+                            }, 1000);
+                        }
+                        
+                        function endBubbleGame() {
+                            bubbleGameActive = false;
+                            clearInterval(bubbleInterval);
+                            
+                            // Clear all bubbles
+                            while (bubbleContainer.firstChild) {
+                                bubbleContainer.removeChild(bubbleContainer.firstChild);
+                            }
+                            
+                            startBubblesBtn.textContent = 'Start Game';
+                            startBubblesBtn.disabled = false;
+                            
+                            showNotification(`Game over! Your score: ${bubbleScore}`, false);
+                        }
+                        
+                        startBubblesBtn.addEventListener('click', startBubbleGame);
+                        
+                        // Pomodoro Timer
+                        const timerDisplay = document.querySelector('.timer-display');
+                        const startPomodoroBtn = document.getElementById('startPomodoroBtn');
+                        const resetPomodoroBtn = document.getElementById('resetPomodoroBtn');
+                        const modeButtons = document.querySelectorAll('.mode-button');
+                        const sessionCounter = document.getElementById('sessionCounter');
+                        const timerProgress = document.querySelector('.timer-progress circle');
+                        
+                        let timerTime = 25 * 60; // 25 minutes in seconds
+                        let timerMode = 'pomodoro';
+                        let timerInterval;
+                        let timerRunning = false;
+                        let sessionsCompleted = 0;
+                        
+                        // Time for each mode in seconds
+                        const modeTimes = {
+                            pomodoro: 25 * 60,
+                            shortBreak: 5 * 60,
+                            longBreak: 15 * 60
+                        };
+                        
+                        function updateTimerDisplay() {
+                            const minutes = Math.floor(timerTime / 60).toString().padStart(2, '0');
+                            const seconds = (timerTime % 60).toString().padStart(2, '0');
+                            timerDisplay.textContent = `${minutes}:${seconds}`;
+                            
+                            // Update progress circle
+                            const currentModeMaxTime = modeTimes[timerMode];
+                            const progress = (currentModeMaxTime - timerTime) / currentModeMaxTime;
+                            const dashOffset = 754 * (1 - progress);
+                            timerProgress.style.strokeDashoffset = dashOffset;
+                        }
+                        
+                        function startTimer() {
+                            if (timerRunning) {
+                                // Pause the timer
+                                clearInterval(timerInterval);
+                                timerRunning = false;
+                                startPomodoroBtn.textContent = 'Resume';
+                            } else {
+                                // Start or resume the timer
+                                timerRunning = true;
+                                startPomodoroBtn.textContent = 'Pause';
+                                
+                                timerInterval = setInterval(() => {
+                                    timerTime--;
+                                    updateTimerDisplay();
+                                    
+                                    if (timerTime <= 0) {
+                                        clearInterval(timerInterval);
+                                        timerRunning = false;
+                                        startPomodoroBtn.textContent = 'Start';
+                                        
+                                        // Play notification sound and show message
+                                        const message = timerMode === 'pomodoro' 
+                                            ? 'Great job! Take a break.' 
+                                            : 'Break time over. Time to focus!';
+                                        
+                                        showNotification(message, false);
+                                        
+                                        // If pomodoro session completed, increase counter
+                                        if (timerMode === 'pomodoro') {
+                                            sessionsCompleted++;
+                                            sessionCounter.textContent = sessionsCompleted;
+                                            
+                                            // After 4 pomodoros, suggest a long break
+                                            if (sessionsCompleted % 4 === 0) {
+                                                setTimerMode('longBreak');
+                                            } else {
+                                                setTimerMode('shortBreak');
+                                            }
+                                        } else {
+                                            // After break, switch to pomodoro
+                                            setTimerMode('pomodoro');
+                                        }
+                                    }
+                                }, 1000);
+                            }
+                        }
+                        
+                        function resetTimer() {
+                            clearInterval(timerInterval);
+                            timerRunning = false;
+                            timerTime = modeTimes[timerMode];
+                            startPomodoroBtn.textContent = 'Start';
+                            updateTimerDisplay();
+                        }
+                        
+                        function setTimerMode(mode) {
+                            timerMode = mode;
+                            timerTime = modeTimes[mode];
+                            
+                            // Update active mode button
+                            modeButtons.forEach(btn => {
+                                if (btn.getAttribute('data-mode') === mode) {
+                                    btn.classList.add('active');
+                                } else {
+                                    btn.classList.remove('active');
+                                }
+                            });
+                            
+                            // Reset timer
+                            clearInterval(timerInterval);
+                            timerRunning = false;
+                            startPomodoroBtn.textContent = 'Start';
+                            updateTimerDisplay();
+                        }
+                        
+                        // Mode button event listeners
+                        modeButtons.forEach(btn => {
+                            btn.addEventListener('click', () => {
+                                setTimerMode(btn.getAttribute('data-mode'));
+                            });
+                        });
+                        
+                        startPomodoroBtn.addEventListener('click', startTimer);
+                        resetPomodoroBtn.addEventListener('click', resetTimer);
+                        
+                        // Initialize timer display
+                        updateTimerDisplay();
+                        
+                        // Quotes rotation
+                        const quotes = [
+                            {quote: "Your mental health is a priority. Your happiness is essential. Your self-care is a necessity.", author: "Unknown"},
+                            {quote: "You don't have to be positive all the time. It's perfectly okay to feel sad, angry, annoyed, frustrated, scared and anxious. Having feelings doesn't make you a negative person. It makes you human.", author: "Lori Deschene"},
+                            {quote: "Self-care is how you take your power back.", author: "Lalah Delia"},
+                            {quote: "Mental health problems don't define who you are. They are something you experience. You walk in the rain and you feel the rain, but you are not the rain.", author: "Matt Haig"},
+                            {quote: "Promise me you'll always remember: You're braver than you believe, stronger than you seem, and smarter than you think.", author: "A.A. Milne"},
+                            {quote: "It's not selfish to love yourself, take care of yourself, and make your happiness a priority. It's necessary.", author: "Mandy Hale"}
+                        ];
+                        
+                        const quoteElement = document.getElementById('quote');
+                        const authorElement = document.getElementById('author');
+                        
+                        function rotateQuotes() {
+                            const randomIndex = Math.floor(Math.random() * quotes.length);
+                            const newQuote = quotes[randomIndex];
+                            
+                            quoteElement.textContent = `"${newQuote.quote}"`;
+                            authorElement.textContent = `- ${newQuote.author}`;
+                        }
+                        
+                        // Change quote every 30 seconds
+                        setInterval(rotateQuotes, 30000);
+                        
+                        // Mood Tracker
+                        const moodOptions = document.querySelectorAll('.mood-option');
+                        const moodNotes = document.getElementById('moodNotes');
+                        const saveMoodBtn = document.getElementById('saveMood');
+                        const moodHistory = document.getElementById('moodHistory');
+                        
+                        let moods = JSON.parse(localStorage.getItem('moods')) || [];
+                        let selectedMood = null;
+                        
+                        function renderMoodHistory() {
+                            moodHistory.innerHTML = '';
+                            
+                            // Create heading if there are entries
+                            if (moods.length > 0) {
+                                const heading = document.createElement('h4');
+                                heading.textContent = 'Recent Mood Entries';
+                                moodHistory.appendChild(heading);
+                            }
+                            
+                            // Show latest entries first (max 5)
+                            const recentMoods = [...moods].reverse().slice(0, 5);
+                            
+                            recentMoods.forEach(entry => {
+                                const moodEntry = document.createElement('div');
+                                moodEntry.classList.add('mood-entry');
+                                
+                                const emoji = getMoodEmoji(entry.value);
+                                
+                                moodEntry.innerHTML = `
+                                    <div>
+                                        <span>${emoji}</span>
+                                        <span>${entry.notes}</span>
+                                    </div>
+                                    <div class="mood-date">${formatDate(entry.date)}</div>
+                                `;
+                                
+                                moodHistory.appendChild(moodEntry);
+                            });
+                        }
+                        
+                        function getMoodEmoji(value) {
+                            const emojis = {
+                                1: '😢',
+                                2: '😔',
+                                3: '😐',
+                                4: '🙂',
+                                5: '😄'
+                            };
+                            return emojis[value] || '😐';
+                        }
+                        
+                        function formatDate(dateString) {
+                            const date = new Date(dateString);
+                            return date.toLocaleDateString('en-US', { 
+                                year: 'numeric', 
+                                month: 'short', 
+                                day: 'numeric'
+                            });
+                        }
+                        
+                        moodOptions.forEach(option => {
+                            option.addEventListener('click', () => {
+                                // Remove selected class from all options
+                                moodOptions.forEach(opt => opt.classList.remove('selected'));
+                                
+                                // Add selected class to clicked option
+                                option.classList.add('selected');
+                                selectedMood = option.getAttribute('data-mood');
+                            });
+                        });
+                        
+                        saveMoodBtn.addEventListener('click', () => {
+                            if (!selectedMood) {
+                                showNotification('Please select a mood first', true);
+                                return;
+                            }
+                            
+                            const newMood = {
+                                date: new Date().toISOString(),
+                                value: parseInt(selectedMood),
+                                notes: moodNotes.value.trim()
+                            };
+                            
+                            // Add to moods array
+                            moods.push(newMood);
+                            
+                            // Save to localStorage
+                            localStorage.setItem('moods', JSON.stringify(moods));
+                            
+                            // Reset form
+                            moodOptions.forEach(opt => opt.classList.remove('selected'));
+                            moodNotes.value = '';
+                            selectedMood = null;
+                            
+                            // Update display
+                            renderMoodHistory();
+                            updateMoodStats();
+                            
+                            showNotification('Mood saved successfully', false);
+                        });
+                        
+                        function updateMoodStats() {
+                            const statsContainer = document.getElementById('moodStats');
+                            if (!statsContainer || moods.length === 0) return;
+                            
+                            // Calculate average mood
+                            const sum = moods.reduce((total, mood) => total + mood.value, 0);
+                            const avg = sum / moods.length;
+                            
+                            // Find most common mood
+                            const moodCounts = {};
+                            moods.forEach(mood => {
+                                moodCounts[mood.value] = (moodCounts[mood.value] || 0) + 1;
+                            });
+                            
+                            let mostCommon = 3; // Default to neutral
+                            let highestCount = 0;
+                            
+                            Object.keys(moodCounts).forEach(value => {
+                                if (moodCounts[value] > highestCount) {
+                                    mostCommon = parseInt(value);
+                                    highestCount = moodCounts[value];
+                                }
+                            });
+                            
+                            // Create stats elements
+                            statsContainer.innerHTML = `
+                                <div class="stat">
+                                    <span class="stat-label">Average Mood:</span>
+                                    <span class="stat-value">${getMoodEmoji(Math.round(avg))}</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">Most Common:</span>
+                                    <span class="stat-value">${getMoodEmoji(mostCommon)}</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">Total Entries:</span>
+                                    <span class="stat-value">${moods.length}</span>
+                                </div>
+                            `;
+                        }
+                        
+                        // Clear all mood data
+                        const clearMoodsBtn = document.getElementById('clearMoods');
+                        if (clearMoodsBtn) {
+                            clearMoodsBtn.addEventListener('click', () => {
+                                if (confirm('Are you sure you want to delete all mood data? This cannot be undone.')) {
+                                    moods = [];
+                                    localStorage.removeItem('moods');
+                                    renderMoodHistory();
+                                    updateMoodStats();
+                                    showNotification('All mood data cleared', false);
+                                }
+                            });
+                        }
+                        
+                        // Initialize mood tracker
+                        renderMoodHistory();
+                        updateMoodStats();
+                        
+                        // Journal functionality
+                        const journalText = document.getElementById('journalText');
+                        const saveJournalBtn = document.getElementById('saveJournal');
+                        const journalEntries = document.getElementById('journalEntries');
+                        
+                        // Load existing entries
+                        let journals = JSON.parse(localStorage.getItem('journals')) || [];
+                        
+                        function saveJournal() {
+                            const content = journalText.value.trim();
+                            if (!content) {
+                                showNotification('Please write something first', true);
+                                return;
+                            }
+                            
+                            const newEntry = {
+                                date: new Date().toISOString(),
+                                content: content
+                            };
+                            
+                            journals.push(newEntry);
+                            localStorage.setItem('journals', JSON.stringify(journals));
+                            
+                            journalText.value = '';
+                            renderJournalEntries();
+                            showNotification('Journal entry saved', false);
+                        }
+                        
+                        function renderJournalEntries() {
+                            if (!journalEntries) return;
+                            
+                            journalEntries.innerHTML = '';
+                            
+                            if (journals.length === 0) {
+                                journalEntries.innerHTML = '<p class="empty-state">No journal entries yet. Start writing today!</p>';
+                                return;
+                            }
+                            
+                            // Show most recent entries first
+                            const recentJournals = [...journals].reverse().slice(0, 3);
+                            
+                            recentJournals.forEach(entry => {
+                                const journalEl = document.createElement('div');
+                                journalEl.classList.add('journal-entry');
+                                
+                                journalEl.innerHTML = `
+                                    <div class="journal-date">${formatDate(entry.date)}</div>
+                                    <div class="journal-content">${entry.content}</div>
+                                `;
+                                
+                                journalEntries.appendChild(journalEl);
+                            });
+                            
+                            // Add "View All" button if there are more entries
+                            if (journals.length > 3) {
+                                const viewAllBtn = document.createElement('button');
+                                viewAllBtn.classList.add('view-all-btn');
+                                viewAllBtn.textContent = 'View All Entries';
+                                viewAllBtn.addEventListener('click', showAllJournals);
+                                journalEntries.appendChild(viewAllBtn);
+                            }
+                        }
+                        
+                        function showAllJournals() {
+                            const modal = document.createElement('div');
+                            modal.classList.add('modal');
+                            
+                            const modalContent = document.createElement('div');
+                            modalContent.classList.add('modal-content');
+                            
+                            const closeBtn = document.createElement('span');
+                            closeBtn.classList.add('close-btn');
+                            closeBtn.innerHTML = '&times;';
+                            closeBtn.addEventListener('click', () => {
+                                document.body.removeChild(modal);
+                            });
+                            
+                            const heading = document.createElement('h3');
+                            heading.textContent = 'All Journal Entries';
+                            
+                            const entriesList = document.createElement('div');
+                            entriesList.classList.add('all-entries');
+                            
+                            // Add all entries, newest first
+                            [...journals].reverse().forEach(entry => {
+                                const entryEl = document.createElement('div');
+                                entryEl.classList.add('journal-entry');
+                                
+                                entryEl.innerHTML = `
+                                    <div class="journal-date">${formatDate(entry.date)}</div>
+                                    <div class="journal-content">${entry.content}</div>
+                                `;
+                                
+                                entriesList.appendChild(entryEl);
+                            });
+                            
+                            modalContent.appendChild(closeBtn);
+                            modalContent.appendChild(heading);
+                            modalContent.appendChild(entriesList);
+                            modal.appendChild(modalContent);
+                            
+                            document.body.appendChild(modal);
+                            
+                            // Close modal when clicking outside of content
+                            modal.addEventListener('click', (e) => {
+                                if (e.target === modal) {
+                                    document.body.removeChild(modal);
+                                }
+                            });
+                        }
+                        
+                        // Clear all journal entries
+                        const clearJournalsBtn = document.getElementById('clearJournals');
+                        if (clearJournalsBtn) {
+                            clearJournalsBtn.addEventListener('click', () => {
+                                if (confirm('Are you sure you want to delete all journal entries? This cannot be undone.')) {
+                                    journals = [];
+                                    localStorage.removeItem('journals');
+                                    renderJournalEntries();
+                                    showNotification('All journal entries cleared', false);
+                                }
+                            });
+                        }
+                        
+                        if (saveJournalBtn) {
+                            saveJournalBtn.addEventListener('click', saveJournal);
+                        }
+                        
+                        // Initialize journal
+                        renderJournalEntries();
+                        
+                        // Notification function
+                        function showNotification(message, isError = false) {
+                            const notification = document.createElement('div');
+                            notification.classList.add('notification');
+                            if (isError) {
+                                notification.classList.add('error');
+                            }
+                            
+                            notification.textContent = message;
+                            document.body.appendChild(notification);
+                            
+                            // Fade in
+                            setTimeout(() => {
+                                notification.classList.add('show');
+                            }, 10);
+                            
+                            // Fade out after 3 seconds
+                            setTimeout(() => {
+                                notification.classList.remove('show');
+                                setTimeout(() => {
+                                    document.body.removeChild(notification);
+                                }, 300);
+                            }, 3000);
+                        }
+                        
+                        // Initialize tabs (select first tab)
+                        document.querySelector('.tab-button').click();
+                        
+                        
+                        // Initial quote
+                        rotateQuotes();
+                        
+                        });
+                        </script>
