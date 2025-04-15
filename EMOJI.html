@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mood Tracker & Journal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #89f7fe, #66a6ff);
+      margin: 0;
+      padding: 2rem;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffffff;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .affirmation {
+      text-align: center;
+      font-style: italic;
+      font-size: 1.2rem;
+      background-color: #ffffffcc;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #ffffffee;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    textarea, button {
+      width: 100%;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 0.8rem;
+      font-size: 1rem;
+      outline: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    button {
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #5a67d8, #6b46c1);
+    }
+
+    .entry {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-left: 6px solid;
+      background: #fefefe;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .happy { border-color: #4caf50; }
+    .neutral { border-color: #ff9800; }
+    .sad { border-color: #f44336; }
+
+    .entry small {
+      display: block;
+      margin-top: 0.5rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧠 Mood Tracker & Visual Journal</h1>
+
+  <div class="affirmation" id="affirmation"></div>
+
+  <div class="container">
+    <label for="journal">Hey friend 💙, share your thoughts here:</label>
+    <textarea id="journal" rows="4" placeholder="What's on your heart today?"></textarea>
+
+    <button onclick="saveEntry()">Save My Journal</button>
+
+    <div id="entries"></div>
+  </div>
+
+  <script>
+    const moodColors = {
+      happy: 'happy',
+      neutral: 'neutral',
+      sad: 'sad'
+    };
+
+    const affirmations = [
+      "You are enough, just as you are.",
+      "Today is full of endless possibilities.",
+      "You have the strength to face any challenge.",
+      "Breathe. You’ve got this.",
+      "You are growing every day in every way.",
+      "Your feelings are valid and important.",
+      "Progress, not perfection.",
+      "Even the smallest step forward is a step in the right direction."
+    ];
+
+    function detectMood(text) {
+      const happyWords = ["great", "happy", "excited", "joy", "wonderful", "grateful", "fun", "smile", "laugh", "loved"];
+      const sadWords = ["sad", "tired", "bad", "unhappy", "lonely", "anxious", "depressed", "cry", "angry", "stressed"];
+
+      const lowerText = text.toLowerCase();
+      let score = 0;
+
+      happyWords.forEach(word => { if (lowerText.includes(word)) score++; });
+      sadWords.forEach(word => { if (lowerText.includes(word)) score--; });
+
+      if (score > 0) return "happy";
+      if (score < 0) return "sad";
+      return "neutral";
+    }
+
+    function generateJournal(mood, userText) {
+      const templates = {
+        happy: [
+          "I'm so glad you're feeling happy today. Keep shining!",
+          "You're radiating joy — love that for you!",
+          "It's a good day, and you're making it even better!"
+        ],
+        sad: [
+          "Hey, I'm here for you. It's okay to feel this way sometimes.",
+          "Even in sadness, you're strong. I'm proud of you for sharing.",
+          "Sending you a virtual hug. Things will get brighter."
+        ],
+        neutral: [
+          "A calm check-in is still powerful. Thanks for being here.",
+          "Your presence matters. Even in stillness, there's strength.",
+          "Thanks for showing up today."
+        ]
+      };
+
+      const options = templates[mood];
+      return options[Math.floor(Math.random() * options.length)] + "\n\n" + userText;
+    }
+
+    function saveEntry() {
+      const journal = document.getElementById("journal").value.trim();
+      const date = new Date().toLocaleString();
+
+      if (journal === '') {
+        alert("Please write something.");
+        return;
+      }
+
+      const mood = detectMood(journal);
+      const generatedText = generateJournal(mood, journal);
+      const entry = { mood, journal: generatedText, date };
+      let entries = JSON.parse(localStorage.getItem("moodEntries")) || [];
+      entries.unshift(entry);
+      localStorage.setItem("moodEntries", JSON.stringify(entries));
+
+      document.getElementById("journal").value = "";
+      loadEntries();
+    }
+
+    function loadEntries() {
+      const entries = JSON.parse(localStorage.getItem("moodEntries")) || [];
+      const container = document.getElementById("entries");
+      container.innerHTML = '';
+
+      entries.forEach(entry => {
+        const div = document.createElement("div");
+        div.className = `entry ${moodColors[entry.mood]}`;
+        div.innerHTML = `
+          <strong>${entry.mood.toUpperCase()}</strong><br/>
+          ${entry.journal.replace(/\n/g, '<br/>')}
+          <small>${entry.date}</small>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function showAffirmation() {
+      const index = new Date().getDate() % affirmations.length;
+      document.getElementById("affirmation").textContent = affirmations[index];
+    }
+
+    showAffirmation();
+    loadEntries();
+  </script>
+
+</body>
+</html>
