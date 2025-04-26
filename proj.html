@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serene - AI Mental Health Companion</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">SereneAi<span></span></a>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#chat">Chat</a></li>
+                    <li><a href="#activities">Activities</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+    
+    <section class="hero">
+        <div class="floating-circles" id="floatingCircles"></div>
+        <h1>Your AI Mental Health Companion</h1>
+        <p>A safe space for emotional support, mindfulness, and personal growth.</p>
+        <a href="#chat" class="btn">Start Chatting</a>
+    </section>
+    
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">How We Help</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Emotional Support</h3>
+                    <p>Talk about your feelings in a safe, judgment-free environment with our empathetic AI companion.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Mindfulness Activities</h3>
+                    <p>Engage in guided breathing exercises, meditation, and relaxation techniques to reduce stress.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Productivity Tools</h3>
+                    <p>Use our Pomodoro timer to manage your work and break time effectively. Stay focused and balanced.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Mood Tracking</h3>
+                    <p>Monitor your emotional patterns over time to gain insights into what affects your well-being.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Gratitude Practice</h3>
+                    <p>Cultivate positivity by regularly recording things you're grateful for in your daily life.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Resource Connection</h3>
+                    <p>Access helpful resources and professional support when you need more assistance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="quote-section" id="quote-section">
+        <div class="container">
+            <div class="quote-box">
+                <p id="quote">"Your mental health is a priority. Your happiness is essential. Your self-care is a necessity."</p>
+                <p class="quote-author" id="author">- Unknown</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="chat-section" id="chat">
+        <div class="container">
+            <h2 class="section-title">Chat with Serene</h2>
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h3>Serene AI</h3>
+                    <span>Online</span>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot-message">
+                        <div class="message-content">
+                            Hello! I'm Serene, your AI mental health companion. How are you feeling today?
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Type your message...">
+                    <button id="sendButton">Send</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="activities" id="activities">
+        <div class="container">
+            <h2 class="section-title">Tools & Activities</h2>
+            <div class="activity-tabs">
+                <button class="tab-button active" data-tab="pomodoro">Pomodoro Timer</button>
+                <button class="tab-button" data-tab="breathing">Breathing</button>
+                <button class="tab-button" data-tab="drawing">Calm Drawing</button>
+                <button class="tab-button" data-tab="memory">Memory Game</button>
+                <button class="tab-button" data-tab="bubbles">Bubble Pop</button>
+                <button class="tab-button" data-tab="mood">Mood Tracker</button>
+                <button class="tab-button" data-tab="gratitude">Gratitude Journal</button>
+            </div>
+            
+            <!-- Pomodoro Timer Tab -->
+            <div class="tab-content active" id="pomodoro">
+                <div class="pomodoro-container">
+                    <h3>Pomodoro Focus Timer</h3>
+                    <p>Use the Pomodoro Technique to boost productivity and maintain mental balance.</p>
+                    
+                    <div class="timer-mode-selector">
+                        <button class="mode-button active" data-mode="pomodoro">Focus (25m)</button>
+                        <button class="mode-button" data-mode="shortBreak">Short Break (5m)</button>
+                        <button class="mode-button" data-mode="longBreak">Long Break (15m)</button>
+                    </div>
+                    
+                    <div class="pomodoro-timer">
+                        <svg class="timer-progress" viewBox="0 0 250 250">
+                            <circle cx="125" cy="125" r="120"></circle>
+                        </svg>
+                        <div class="timer-display">25:00</div>
+                    </div>
+                    
+                    <div class="timer-controls">
+                        <button class="btn" id="startPomodoroBtn">Start</button>
+                        <button class="btn" id="resetPomodoroBtn">Reset</button>
+                    </div>
+                    
+                    <div class="timer-sessions">
+                        Sessions completed: <span id="sessionCounter">0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="breathing">
+                <div class="mindfulness-exercise">
+                    <h3>Guided Breathing Exercise</h3>
+                    <p>Follow the circle as it expands and contracts. Breathe in as it grows, and out as it shrinks.</p>
+                    <div class="breathing-container">
+                        <div class="circle-breath" id="breathCircle"></div>
+                        <div class="breathing-text" id="breathText">Breathe In</div>
+                    </div>
+                    <button class="btn" id="startBreathing">Start Exercise</button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="drawing">
+                <div class="canvas-container">
+                    <h3>Express Yourself Through Art</h3>
+                    <p>Use this simple drawing tool to express your feelings or just relax with some creative doodling.</p>
+                    <div class="color-dots">
+                        <span class="color-dot" style="background-color: #7bb5b3;" data-color="#7bb5b3"></span>
+                        <span class="color-dot" style="background-color: #b6d7a8;" data-color="#b6d7a8"></span>
+                        <span class="color-dot" style="background-color: #9fc5e8;" data-color="#9fc5e8"></span>
+                        <span class="color-dot" style="background-color: #d5a6bd;" data-color="#d5a6bd"></span>
+                        <span class="color-dot" style="background-color: #545454;" data-color="#545454"></span>
+                    </div>
+                    <canvas id="canvas" width="600" height="400"></canvas>
+                    <button class="btn" id="clearCanvas" style="margin-top: 20px;">Clear Canvas</button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="memory">
+                <div class="memory-container">
+                    <h3>Memory Match Game</h3>
+                    <p>Challenge your brain and improve focus with this simple memory matching game.</p>
+                    <div class="memory-game" id="memoryGame"></div>
+                    <button class="btn" id="restartMemory" style="margin-top: 20px;">Restart Game</button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="bubbles">
+                <div class="bubble-game">
+                    <h3>Bubble Pop Stress Relief</h3>
+                    <p>Pop the floating bubbles to release stress and tension. Each pop gives you a moment of relief.</p>
+                    <div class="bubble-stats">
+                        <div class="bubble-score">Score: <span id="bubbleScore">0</span></div>
+                        <div class="bubble-timer">Time: <span id="bubbleTimer">60</span>s</div>
+                    </div>
+                    <div class="bubble-container" id="bubbleContainer"></div>
+                    <button class="btn" id="startBubbles">Start Game</button>
+                </div>
+            </div>
+                        
+            <div class="tab-content" id="mood">
+                <div class="mood-tracker">
+                    <h3>Track Your Mood</h3>
+                    <p>Monitor your emotional patterns to gain insights into your mental wellbeing over time.</p>
+                    <div class="mood-options">
+                        <div class="mood-option" data-mood="5">
+                            <div class="mood-emoji">😄</div>
+                            <div class="mood-label">Great</div>
+                        </div>
+                        <div class="mood-option" data-mood="4">
+                            <div class="mood-emoji">🙂</div>
+                            <div class="mood-label">Good</div>
+                        </div>
+                        <div class="mood-option" data-mood="3">
+                            <div class="mood-emoji">😐</div>
+                            <div class="mood-label">Okay</div>
+                        </div>
+                        <div class="mood-option" data-mood="2">
+                            <div class="mood-emoji">😔</div>
+                            <div class="mood-label">Low</div>
+                        </div>
+                        <div class="mood-option" data-mood="1">
+                            <div class="mood-emoji">😢</div>
+                            <div class="mood-label">Bad</div>
+                        </div>
+                    </div>
+                    <div class="mood-chart-container">
+                        <canvas id="moodChart"></canvas>
+                    </div>
+                    <div class="mood-notes">
+                        <h4>Add a note about today's mood:</h4>
+                        <textarea id="moodNotes" placeholder="What influenced your mood today?"></textarea>
+                        <button class="btn" id="saveMood">Save Mood</button>
+                    </div>
+                    <div class="mood-history" id="moodHistory">
+                        <!-- Mood entries will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="tab-content" id="gratitude">
+                <div class="gratitude-journal">
+                    <h3>Gratitude Journal</h3>
+                    <p>Cultivate positivity by regularly recording things you're grateful for in your daily life.</p>
+                    <div class="gratitude-form">
+                        <h4>What are you grateful for today?</h4>
+                        <textarea id="gratitudeEntry" placeholder="I am grateful for..."></textarea>
+                        <button class="btn" id="saveGratitude">Save Entry</button>
+                    </div>
+                    <div class="gratitude-entries" id="gratitudeEntries">
+                        <!-- Gratitude entries will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+                    </div>
+                </section>
+                
+                <section class="resources" id="resources">
+                    <div class="container">
+                        <h2 class="section-title">Resources</h2>
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <h3>Crisis Support Lines</h3>
+                                <p>If you're experiencing a mental health crisis or having thoughts of suicide, please reach out for professional help immediately:</p>
+                                <p><strong>National Suicide Prevention Lifeline:</strong> 988 or 1-800-273-8255</p>
+                                <p><strong>Crisis Text Line:</strong> Text HOME to 741741</p>
+                            </div>
+                            <div class="feature-card">
+                                <h3>Find A Therapist</h3>
+                                <p>Working with a licensed mental health professional can provide personalized support for your journey:</p>
+                                <p>- Psychology Today Directory</p>
+                                <p>- BetterHelp (Online Therapy)</p>
+                                <p>- Talkspace (Online Therapy)</p>
+                            </div>
+                            <div class="feature-card">
+                                <h3>Self-Help Books</h3>
+                                <p>Recommended reading for mental wellness and personal growth:</p>
+                                <p>- "The Mindful Way Through Depression" by Williams, Teasdale, Segal, and Kabat-Zinn</p>
+                                <p>- "Feeling Good" by David D. Burns</p>
+                                <p>- "Self-Compassion" by Kristin Neff</p>
+                            </div>
+                            <div class="feature-card">
+                                <h3>Mental Health Apps</h3>
+                                <p>Additional tools you might find helpful:</p>
+                                <p>- Headspace (Meditation)</p>
+                                <p>- Calm (Sleep & Meditation)</p>
+                                <p>- Daylio (Mood Tracking)</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <div class="notification" id="notification"></div>
+                
+                <footer>
+                    <div class="container">
+                        <div class="footer-links">
+                            <a href="#">Privacy Policy</a>
+                            <a href="#">Terms of Service</a>
+                            <a href="#">Contact Us</a>
+                            <a href="#">About</a>
+                        </div>
+                        <p class="copyright">© 2025 SereneAi. All rights reserved. This is a fictional project.</p>
+                        <p class="disclaimer">Note: SereneAi is not a substitute for professional mental health care. If you're experiencing a crisis, please contact emergency services or a mental health professional.</p>
+                    </div>
+                </footer>
+                
